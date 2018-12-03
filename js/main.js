@@ -12,11 +12,16 @@ function getMovies(searchText){
       let movies = response.data.Search;
       let output = '';
       $.each(movies, (index, movie) => {
+        let x= (String)(movie.Title);
+        let myspace = 25
+        if (x.length > myspace){
+          x= x.substring(0,myspace) + "..."
+        }
         output += `
           <div class="col-md-3">
             <div class="well text-center">
               <img src="${movie.Poster}">
-              <h5>${movie.Title}</h5>
+              <h5>${x}</h5>
               <a onclick="movieSelected('${movie.imdbID}')" class="btn btn-primary" href="#">Movie Details</a>
             </div>
           </div>
@@ -26,6 +31,7 @@ function getMovies(searchText){
       $('#movies').html(output);
     })
     .catch((err) => {
+          console.log(err)
           let output = '';
           output += `
           <div class="col-md-3">
